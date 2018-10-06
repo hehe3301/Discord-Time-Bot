@@ -10,5 +10,5 @@ public class  Secrets {
     private Secrets() {
     }
 
-    public static const String BOT_TOKEN = "SOME_TOKEN"
+    public static String BOT_TOKEN = "SOME_TOKEN";
 }

@@ -8,7 +8,7 @@ public class MainRunner {
 
         if(args.length != 1){
             System.out.println("Please enter the bots token as the first argument e.g java -jar thisjar.jar tokenhere");
-            IDiscordClient cli = BotUtils.getBuiltDiscordClient(Secrets.getInstance.BOT_TOKEN);
+            IDiscordClient cli = BotUtils.getBuiltDiscordClient(Secrets.getInstance().BOT_TOKEN);
 
             // Register a listener via the EventSubscriber annotation which allows for organisation and delegation of events
             cli.getDispatcher().registerListener(new CommandHandler());
