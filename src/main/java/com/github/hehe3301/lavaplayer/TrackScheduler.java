@@ -1,4 +1,4 @@
-package com.github.decyg.lavaplayer;
+package com.github.hehe3301.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;

@@ -1,4 +1,4 @@
-package com.github.decyg;
+package com.github.hehe3301;
 
 import sx.blah.discord.api.IDiscordClient;
 

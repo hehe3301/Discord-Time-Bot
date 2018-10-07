@@ -1,7 +1,8 @@
-package com.github.decyg;
+package com.github.hehe3301;
 
-import com.github.decyg.lavaplayer.GuildMusicManager;
-import com.github.decyg.lavaplayer.TrackScheduler;
+import com.github.hehe3301.lavaplayer.GuildMusicManager;
+import com.github.hehe3301.lavaplayer.Settings;
+import com.github.hehe3301.lavaplayer.TrackScheduler;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
@@ -41,7 +42,7 @@ public class CommandHandler {
         commandMap.put("joinvoice", (event, args) -> {
 
             IVoiceChannel userVoiceChannel = event.getAuthor().getVoiceStateForGuild(event.getGuild()).getChannel();
-
+            event.getChannel().sendMessage("FOO");
             if(userVoiceChannel == null)
                 return;
 
@@ -202,11 +203,11 @@ public class CommandHandler {
             return;
 
         // Check if the first arg (the command) starts with the prefix defined in the utils class
-        if(!argArray[0].startsWith(BotUtils.BOT_PREFIX))
+        if(!argArray[0].startsWith(Settings.com_prefix))
             return;
 
         // Extract the "command" part of the first arg out by ditching the amount of characters present in the prefix
-        String commandStr = argArray[0].substring(BotUtils.BOT_PREFIX.length());
+        String commandStr = argArray[0].substring(Settings.com_prefix.length());
 
         // Load the rest of the args in the array into a List for safer access
         List<String> argsList = new ArrayList<>(Arrays.asList(argArray));

@@ -1,5 +1,6 @@
-package com.github.decyg;
+package com.github.hehe3301;
 
+import com.github.hehe3301.lavaplayer.Settings;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IChannel;
@@ -10,9 +11,6 @@ import sx.blah.discord.util.RequestBuffer;
  * Created by declan on 03/04/2017.
  */
 class BotUtils {
-
-    // Constants for use throughout the bot
-    static String BOT_PREFIX = "/";
 
     // Handles the creation and getting of a IDiscordClient object for a token
     static IDiscordClient getBuiltDiscordClient(String token){

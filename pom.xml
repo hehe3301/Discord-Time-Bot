@@ -31,7 +31,7 @@
                     <archive>
                         <manifest>
                             <!-- Specify your own main class here: {package}.{class} -->
-                            <mainClass>com.github.decyg.MainRunner</mainClass>
+                            <mainClass>com.github.hehe3301.MainRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

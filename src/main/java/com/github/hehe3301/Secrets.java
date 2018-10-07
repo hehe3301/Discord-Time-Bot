@@ -1,4 +1,4 @@
-package com.github.decyg;
+package com.github.hehe3301;
 
 public class  Secrets {
     private static Secrets ourInstance = new Secrets();
@@ -10,5 +10,5 @@ public class  Secrets {
     private Secrets() {
     }
 
-    public static String BOT_TOKEN = "SOME_TOKEN";
+    public static String BOT_TOKEN = "TOKEN_HERE";
 }
