@@ -1,4 +1,4 @@
-package com.github.hehe3301.lavaplayer;
+package com.github.hehe3301;
 
 /**
  * Created by hehe3 on 10/7/2018.
