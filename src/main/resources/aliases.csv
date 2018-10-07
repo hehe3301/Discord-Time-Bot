@@ -1,3 +1,3 @@
 "Eastern","EST","EDT"
-"Zulu","GMT"
-"UTC","GMT"
+"Zulu","GMT","GMT"
+"GMT","UTC","UTC"

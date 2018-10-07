@@ -15,13 +15,15 @@ import java.util.*;
  */
 public class CommandHandler {
 
+    public TimeHandler time_handler;
+
+
     // A static map of commands mapping from command string to the functional impl
     private static Map<String, Command> commandMap = new HashMap<>();
     private static Map<String, String> helpMap = new HashMap<>();
 
-    // Statically populate the commandMap with the intended functionality
-    // Might be better practise to do this from an instantiated objects constructor
-    static {
+    public CommandHandler() {
+        this.time_handler = new TimeHandler();
 
         // If the IUser that called this is in a voice channel, join them
         commandMap.put("joinvoice", (event, args) -> {
@@ -54,13 +56,13 @@ public class CommandHandler {
             String rtn = "";
             if (args.isEmpty())
             {
-                rtn="\n"+TimeHandler.now();
+                rtn="\n"+time_handler.now();
             }
             else
             {
                 for (String tz:args)
                 {
-                    rtn=rtn+"\n"+TimeHandler.now(tz);
+                    rtn=rtn+"\n"+time_handler.now(tz);
                 }
             }
 

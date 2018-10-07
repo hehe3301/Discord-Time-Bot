@@ -1,5 +1,6 @@
 package com.github.hehe3301.bot;
 
+import com.github.hehe3301.time_handler.TimeHandler;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IChannel;
@@ -10,7 +11,6 @@ import sx.blah.discord.util.RequestBuffer;
  * Created by declan on 03/04/2017.
  */
 public class BotUtils {
-
     // Handles the creation and getting of a IDiscordClient object for a token
     public static IDiscordClient getBuiltDiscordClient(String token){
 
