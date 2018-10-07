@@ -16,7 +16,7 @@ public class TimeHandler {
     public static String now(String time_zone)
     {
         SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
-        dateFormatGmt.setTimeZone(TimeZone.getTimeZone(time_zone));
+        dateFormatGmt.setTimeZone(TimeZone.getTimeZone(time_zone.toUpperCase()));
         //Time in GMT
 
         //Local time zone
@@ -32,7 +32,5 @@ public class TimeHandler {
         }
 
         return "The time is now: "+justTime.format(time) +" "+time_zone;
-
-
     }
 }

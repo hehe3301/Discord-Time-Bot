@@ -50,21 +50,21 @@ public class CommandHandler {
         helpMap.put("now",Settings.com_prefix+"now prints the current time in UTC if not called with a parameter, or in the given TZ's if they exists.");
         commandMap.put("now", (event, args) -> {
 
-            CP.cLog(Settings.debug_enabled, "User: "+event.getAuthor().getName()+" instructed me to get current time." );
+            CP.cLog(Settings.debug_enabled, "User: "+event.getAuthor().getName()+" instructed me to get current time.\n" );
             String rtn = "";
             if (args.isEmpty())
             {
-                rtn=TimeHandler.now();
+                rtn="\n"+TimeHandler.now();
             }
             else
             {
                 for (String tz:args)
                 {
-                    rtn=rtn+TimeHandler.now(tz);
+                    rtn=rtn+"\n"+TimeHandler.now(tz);
                 }
             }
 
-            event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+rtn);
+            event.getChannel().sendMessage(event.getAuthor().mention()+rtn);
 
 
         });
@@ -72,7 +72,7 @@ public class CommandHandler {
         helpMap.put("help",Settings.com_prefix+"help prints this help message.");
         commandMap.put("help", (event, args) -> {
 
-            CP.cLog(Settings.debug_enabled, "User: "+event.getAuthor().getName()+" printed the help." );
+            CP.cLog(Settings.debug_enabled, "User: "+event.getAuthor().getName()+" printed the help.\n" );
 
             String printString = "Commands I know:";
             for (String key : commandMap.keySet())
