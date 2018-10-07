@@ -23,8 +23,11 @@ public class TimeHandler{
         return now("UTC");
     }
 
-    public String now(String time_zone)
+    public String now(String p_time_zone)
     {
+        //If we have an alias, un-alias
+        String time_zone = unAlias(p_time_zone);
+
         SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
         dateFormatGmt.setTimeZone(TimeZone.getTimeZone(time_zone.toUpperCase()));
         //Time in GMT
@@ -73,6 +76,24 @@ public class TimeHandler{
         CP.cLog(Settings.debug_enabled, "Aliases loaded: "+ aliasMap.size() +"\n");
     }
 
+    private String unAlias(String thing)
+    {
+        //If we have an alias for this
+        if(aliasMap.get(thing.toUpperCase()) != null)
+        {
+            return thing;
+        }
+
+        //If it is daylight savings time
+        if(TimeZone.getDefault().inDaylightTime( new Date() ))
+        {
+            return aliasMap.get(thing).get(0);
+        }
+        else
+        {
+            return aliasMap.get(thing).get(1);
+        }
+    }
     public TimeHandler() {
         loadAliases(Settings.alias_file);
     }

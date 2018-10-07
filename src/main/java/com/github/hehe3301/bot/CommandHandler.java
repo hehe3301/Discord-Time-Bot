@@ -60,7 +60,7 @@ public class CommandHandler {
             }
             else
             {
-                for (String tz:args)
+                for (String tz : args)
                 {
                     rtn=rtn+"\n"+time_handler.now(tz);
                 }
@@ -85,7 +85,7 @@ public class CommandHandler {
 
         });
 
-        helpMap.put("alias",Settings.com_prefix+"alias adds a alias to a timezone, standard and daylight savings. ex: alias Eastern EST EDT"+" UNIMPLEMENTED");
+        helpMap.put("alias",Settings.com_prefix+"alias adds a alias to a timezone(s), standard is required but daylight savings is optional. ex: alias Eastern EST EDT"+" UNIMPLEMENTED");
         commandMap.put("alias", (event, args) -> {
             //TODO implement
             event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+"This feature has not been implemented yet!");
