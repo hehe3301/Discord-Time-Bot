@@ -1,5 +1,8 @@
 package com.github.hehe3301;
 
+import com.github.hehe3301.bot.BotUtils;
+import com.github.hehe3301.bot.CommandHandler;
+import com.github.hehe3301.configs.Secrets;
 import sx.blah.discord.api.IDiscordClient;
 
 public class MainRunner {

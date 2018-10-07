@@ -1,19 +1,12 @@
-package com.github.hehe3301;
+package com.github.hehe3301.bot;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+
+import com.github.hehe3301.configs.Settings;
+import com.github.hehe3301.conditional_print.CP;
+import com.github.hehe3301.time_handler.TimeHandler;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
-import sx.blah.discord.handle.obj.IChannel;
-import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IVoiceChannel;
-import sx.blah.discord.util.EmbedBuilder;
-import sx.blah.discord.util.RequestBuffer;
 
 import java.util.*;
 
@@ -24,6 +17,7 @@ public class CommandHandler {
 
     // A static map of commands mapping from command string to the functional impl
     private static Map<String, Command> commandMap = new HashMap<>();
+    private static Map<String, String> helpMap = new HashMap<>();
 
     // Statically populate the commandMap with the intended functionality
     // Might be better practise to do this from an instantiated objects constructor
@@ -33,9 +27,10 @@ public class CommandHandler {
         commandMap.put("joinvoice", (event, args) -> {
 
             IVoiceChannel userVoiceChannel = event.getAuthor().getVoiceStateForGuild(event.getGuild()).getChannel();
-            event.getChannel().sendMessage("FOO");
-            if(userVoiceChannel == null)
+            if(userVoiceChannel == null) {
                 return;
+            }
+            CP.cLog(Settings.debug_enabled, "User: "+event.getAuthor().getName()+" instructed me to join: "+userVoiceChannel);
 
             userVoiceChannel.join();
 
@@ -47,10 +42,47 @@ public class CommandHandler {
 
             if(botVoiceChannel == null)
                 return;
-
+            CP.cLog(Settings.debug_enabled, "User: "+event.getAuthor().getName()+" instructed me to leave: "+botVoiceChannel);
             botVoiceChannel.leave();
 
         });
+
+        helpMap.put("now",Settings.com_prefix+"now prints the current time in UTC if not called with a parameter, or in the given TZ's if they exists.");
+        commandMap.put("now", (event, args) -> {
+
+            CP.cLog(Settings.debug_enabled, "User: "+event.getAuthor().getName()+" instructed me to get current time." );
+            String rtn = "";
+            if (args.isEmpty())
+            {
+                rtn=TimeHandler.now();
+            }
+            else
+            {
+                for (String tz:args)
+                {
+                    rtn=rtn+TimeHandler.now(tz);
+                }
+            }
+
+            event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+rtn);
+
+
+        });
+
+        helpMap.put("help",Settings.com_prefix+"help prints this help message.");
+        commandMap.put("help", (event, args) -> {
+
+            CP.cLog(Settings.debug_enabled, "User: "+event.getAuthor().getName()+" printed the help." );
+
+            String printString = "Commands I know:";
+            for (String key : commandMap.keySet())
+            {
+                printString=printString+"\n"+key+": "+helpMap.get(key);
+            }
+            event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+printString);
+
+        });
+
 
     }
 

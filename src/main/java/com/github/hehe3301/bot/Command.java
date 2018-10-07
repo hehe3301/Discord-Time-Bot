@@ -1,4 +1,4 @@
-package com.github.hehe3301;
+package com.github.hehe3301.bot;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 

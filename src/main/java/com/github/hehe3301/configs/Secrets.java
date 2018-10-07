@@ -1,4 +1,4 @@
-package com.github.hehe3301;
+package com.github.hehe3301.configs;
 
 public class  Secrets {
     private static Secrets ourInstance = new Secrets();
@@ -10,5 +10,5 @@ public class  Secrets {
     private Secrets() {
     }
 
-    public static String BOT_TOKEN = "TOKEN_HERE";
+    public static String BOT_TOKEN = "";
 }
