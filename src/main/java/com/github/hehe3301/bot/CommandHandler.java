@@ -85,7 +85,27 @@ public class CommandHandler {
 
         });
 
+        helpMap.put("alias",Settings.com_prefix+"alias adds a alias to a timezone, standard and daylight savings. ex: alias Eastern EST EDT"+" UNIMPLEMENTED");
+        commandMap.put("alias", (event, args) -> {
+            //TODO implement
+            event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+"This feature has not been implemented yet!");
 
+        });
+        helpMap.put("aliases",Settings.com_prefix+"aliases prints the list of known aliases"+" UNIMPLEMENTED");
+        commandMap.put("aliases", (event, args) -> {
+
+            //TODO implement
+            event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+"This feature has not been implemented yet!");
+
+        });
+
+        helpMap.put("time",Settings.com_prefix+"time translates a time from one timezone to another. ex: time 7pm est utc"+" UNIMPLEMENTED");
+        commandMap.put("time", (event, args) -> {
+
+            //TODO implement
+            event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+"This feature has not been implemented yet!");
+
+        });
     }
 
     @EventSubscriber
