@@ -24,31 +24,6 @@ public class CommandHandler {
 
     public CommandHandler() {
         this.time_handler = new TimeHandler();
-
-        // If the IUser that called this is in a voice channel, join them
-        commandMap.put("joinvoice", (event, args) -> {
-
-            IVoiceChannel userVoiceChannel = event.getAuthor().getVoiceStateForGuild(event.getGuild()).getChannel();
-            if(userVoiceChannel == null) {
-                return;
-            }
-            CP.cLog(Settings.debug_enabled, "User: "+event.getAuthor().getName()+" instructed me to join: "+userVoiceChannel);
-
-            userVoiceChannel.join();
-
-        });
-
-        commandMap.put("leavevoice", (event, args) -> {
-
-            IVoiceChannel botVoiceChannel = event.getClient().getOurUser().getVoiceStateForGuild(event.getGuild()).getChannel();
-
-            if(botVoiceChannel == null)
-                return;
-            CP.cLog(Settings.debug_enabled, "User: "+event.getAuthor().getName()+" instructed me to leave: "+botVoiceChannel);
-            botVoiceChannel.leave();
-
-        });
-
         helpMap.put("now",Settings.com_prefix+"now prints the current time in UTC if not called with a parameter, or in the given TZ's if they exists.");
         commandMap.put("now", (event, args) -> {
 
