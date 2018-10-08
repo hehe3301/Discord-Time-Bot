@@ -28,6 +28,11 @@ public class TimeHandler{
         //If we have an alias, un-alias
         String time_zone = unAlias(p_time_zone);
 
+        if(!Arrays.asList(TimeZone.getAvailableIDs()).contains(time_zone) )
+        {
+            return "Invalid time zone: "+p_time_zone;
+        }
+
         SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
         dateFormatGmt.setTimeZone(TimeZone.getTimeZone(time_zone.toUpperCase()));
         //Time in GMT
@@ -44,7 +49,7 @@ public class TimeHandler{
             return "!PARSE ERROR!";
         }
 
-        return "The time is now: "+justTime.format(time) +" "+time_zone;
+        return "The time is now: "+justTime.format(time) +" "+p_time_zone;
     }
 
     private void loadAliases(String pFilename)
@@ -74,26 +79,34 @@ public class TimeHandler{
         }
 
         CP.cLog(Settings.debug_enabled, "Aliases loaded: "+ aliasMap.size() +"\n");
+
     }
 
     private String unAlias(String thing)
     {
-        //If we have an alias for this
-        if(aliasMap.get(thing.toUpperCase()) != null)
-        {
-            return thing;
-        }
+        CP.cLog(Settings.debug_enabled, "Checking for alias: "+ thing +"\n");
+        String tz=thing.toUpperCase();
 
-        //If it is daylight savings time
-        if(TimeZone.getDefault().inDaylightTime( new Date() ))
+        //If we have an alias for this
+        if(aliasMap.get(tz) == null)
         {
-            return aliasMap.get(thing).get(0);
+            return tz;
         }
         else
         {
-            return aliasMap.get(thing).get(1);
+            //If it is daylight savings time
+            if(TimeZone.getDefault().inDaylightTime( new Date() ))
+            {
+                return unAlias(aliasMap.get(tz).get(1));
+            }
+            else
+            {
+                return unAlias(aliasMap.get(tz).get(0));
+            }
         }
+
     }
+
     public TimeHandler() {
         loadAliases(Settings.alias_file);
     }

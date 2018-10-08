@@ -1,3 +1,6 @@
-"Eastern","EST","EDT"
+"Eastern","EST","PRT"
+"Western","PST","MST"
+"Central","CST","EST"
+"Mountain","PST","MST"
 "Zulu","GMT","GMT"
 "GMT","UTC","UTC"
