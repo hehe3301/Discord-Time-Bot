@@ -42,7 +42,8 @@ public class TimeHandler{
 
         SimpleDateFormat justTime= new SimpleDateFormat("HHmm");
         Date time;
-        try {
+        try
+        {
              time = dateFormatLocal.parse(dateFormatGmt.format(new Date()));
         } catch (ParseException e) {
             e.printStackTrace();
