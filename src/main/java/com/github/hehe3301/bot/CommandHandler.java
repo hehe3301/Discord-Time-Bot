@@ -66,7 +66,7 @@ public class CommandHandler {
             event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+"This feature has not been implemented yet!");
 
         });
-        helpMap.put("aliases",Settings.com_prefix+"aliases prints the list of known aliases"+" UNIMPLEMENTED");
+        helpMap.put("aliases",Settings.com_prefix+"aliases prints the list of known aliases");
         commandMap.put("aliases", (event, args) -> {
             String printString = time_handler.getAliases();
 
