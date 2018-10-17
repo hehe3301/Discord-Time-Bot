@@ -68,9 +68,9 @@ public class CommandHandler {
         });
         helpMap.put("aliases",Settings.com_prefix+"aliases prints the list of known aliases"+" UNIMPLEMENTED");
         commandMap.put("aliases", (event, args) -> {
+            String printString = time_handler.getAliases();
 
-            //TODO implement
-            event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+"This feature has not been implemented yet!");
+            event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+printString);
 
         });
 

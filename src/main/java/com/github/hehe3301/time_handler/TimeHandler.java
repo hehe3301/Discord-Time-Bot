@@ -111,4 +111,13 @@ public class TimeHandler{
     public TimeHandler() {
         loadAliases(Settings.alias_file);
     }
+
+    public String getAliases() {
+        String printString = "Aliases I know:";
+        for (String key : aliasMap.keySet())
+        {
+            printString=printString+"\n"+key+"=\t Standard Time: "+aliasMap.get(key).get(0)+",\t Daylight Savings Time: "+aliasMap.get(key).get(1);
+        }
+        return printString;
+    }
 }
