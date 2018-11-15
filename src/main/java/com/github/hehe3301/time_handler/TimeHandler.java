@@ -23,16 +23,18 @@ public class TimeHandler{
 
     public String now(String p_time_zone)
     {
+        CP.cLog(Settings.debug_enabled, "Calling now on: "+p_time_zone+"\n");
         //If we have an alias, un-alias
         String time_zone = unAlias(p_time_zone);
+        CP.cLog(Settings.debug_enabled, "After unAlias: "+time_zone+"\n");
 
-        if(!Arrays.asList(TimeZone.getAvailableIDs()).contains(time_zone) )
+        if(!(Arrays.asList(TimeZone.getAvailableIDs()).contains(time_zone)) )
         {
             return "Invalid time zone: "+p_time_zone;
         }
 
         SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
-        dateFormatGmt.setTimeZone(TimeZone.getTimeZone(time_zone.toUpperCase()));
+        dateFormatGmt.setTimeZone(TimeZone.getTimeZone(time_zone));
         //Time in GMT
 
         //Local time zone
@@ -84,7 +86,7 @@ public class TimeHandler{
     private String unAlias(String thing)
     {
         CP.cLog(Settings.debug_enabled, "Checking for alias: "+ thing +"\n");
-        String tz=thing.toUpperCase();
+        String tz=thing;
 
         //If we have an alias for this
         if(aliasMap.get(tz) == null)
