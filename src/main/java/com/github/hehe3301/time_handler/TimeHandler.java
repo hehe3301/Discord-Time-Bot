@@ -1,5 +1,4 @@
 package com.github.hehe3301.time_handler;
-import com.github.hehe3301.bot.Command;
 import com.github.hehe3301.conditional_print.CP;
 import com.github.hehe3301.configs.Settings;
 
