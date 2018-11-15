@@ -54,7 +54,7 @@ public class MockDiscordClient implements IDiscordClient {
 
     @Override
     public void login() {
-        System.out.println("login was called.");
+
     }
 
     @Override

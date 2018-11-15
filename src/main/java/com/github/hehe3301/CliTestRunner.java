@@ -1,9 +1,12 @@
 package com.github.hehe3301;
-import com.github.hehe3301.bot.BotUtils;
+
 import com.github.hehe3301.bot.CommandHandler;
 import com.github.hehe3301.test.MockDiscordClient;
-import sx.blah.discord.api.ClientBuilder;
+import com.github.hehe3301.test.MockMessage;
+
 import sx.blah.discord.api.IDiscordClient;
+import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sx.blah.discord.handle.obj.IMessage;
 
 import java.util.Scanner;
 
@@ -13,13 +16,18 @@ public class CliTestRunner {
         CommandHandler mockBot = new CommandHandler();
 
         IDiscordClient client = new MockDiscordClient();
-        client.getDispatcher().registerListener(new CommandHandler());
+        client.getDispatcher().registerListener(mockBot);
         client.login();
 
-
-        System.out.print("Enter a name: ");
-        String name = in.nextLine().trim();
-        String greeting = "Hello, %s!";
-        System.out.println(String.format(greeting, name));
+        System.out.println("Entering Mock Message Mode (type \"quit\" to quit).");
+        while (true) {
+            String userCommand = in.nextLine();
+            if ("quit".equals(userCommand)) {
+                System.exit(0);
+            }
+            IMessage mockMessage = new MockMessage(userCommand);
+            MessageReceivedEvent mockEvent = new MessageReceivedEvent(mockMessage);
+            client.getDispatcher().dispatch(mockEvent);
+        }
     }
 }
