@@ -124,15 +124,8 @@ public class TimeHandler{
 
     public String dumpZones()
     {
-        String printString = "";
+        String printString = "Just go look at: https://github.com/hehe3301/Discord-Time-Bot";
 
-        for (Iterator<String> i = Arrays.asList(TimeZone.getAvailableIDs()).iterator(); i.hasNext();)
-        {
-            String item = i.next();
-
-            System.out.println(item);
-            printString = printString+item+"\n";
-        }
 
         return printString;
     }
