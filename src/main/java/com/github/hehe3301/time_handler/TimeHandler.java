@@ -1,5 +1,5 @@
 package com.github.hehe3301.time_handler;
-import com.github.hehe3301.bot.Command;
+
 import com.github.hehe3301.conditional_print.CP;
 import com.github.hehe3301.configs.Settings;
 
@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by hehe3 on 10/7/2018.
+ * Created by hehe3301 on 10/7/2018.
  */
 public class TimeHandler{
 
@@ -53,7 +53,7 @@ public class TimeHandler{
         return "The time is now: "+justTime.format(time) +" "+p_time_zone;
     }
 
-    private void loadAliases(String pFilename)
+    private void loadAliases()
     {
         String csvFile = Settings.alias_file;
         String line = "";
@@ -109,15 +109,31 @@ public class TimeHandler{
     }
 
     public TimeHandler() {
-        loadAliases(Settings.alias_file);
+        loadAliases();
     }
 
-    public String getAliases() {
+    public String getAliases()
+    {
         String printString = "Aliases I know:";
         for (String key : aliasMap.keySet())
         {
             printString=printString+"\n"+key+"=\t Standard Time: "+aliasMap.get(key).get(0)+",\t Daylight Savings Time: "+aliasMap.get(key).get(1);
         }
+        return printString;
+    }
+
+    public String dumpZones()
+    {
+        String printString = "";
+
+        for (Iterator<String> i = Arrays.asList(TimeZone.getAvailableIDs()).iterator(); i.hasNext();)
+        {
+            String item = i.next();
+
+            System.out.println(item);
+            printString = printString+item+"\n";
+        }
+
         return printString;
     }
 }

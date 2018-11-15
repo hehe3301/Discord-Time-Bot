@@ -6,13 +6,9 @@ import com.github.hehe3301.conditional_print.CP;
 import com.github.hehe3301.time_handler.TimeHandler;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
-import sx.blah.discord.handle.obj.IVoiceChannel;
 
 import java.util.*;
 
-/**
- * Created by declan on 04/04/2017.
- */
 public class CommandHandler {
 
     public TimeHandler time_handler;
@@ -79,6 +75,14 @@ public class CommandHandler {
 
             //TODO implement
             event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+"This feature has not been implemented yet!");
+
+        });
+
+        helpMap.put("zones",Settings.com_prefix+"zones dumps all the known time zones!");
+        commandMap.put("zones", (event, args) -> {
+
+            String printString = time_handler.dumpZones();
+            event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+printString);
 
         });
     }
