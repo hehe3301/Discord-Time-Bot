@@ -124,9 +124,6 @@ public class TimeHandler{
 
     public String dumpZones()
     {
-        String printString = "Just go look at: https://github.com/hehe3301/Discord-Time-Bot";
-
-
-        return printString;
+        return "Just go look at: https://github.com/hehe3301/Discord-Time-Bot";
     }
 }
