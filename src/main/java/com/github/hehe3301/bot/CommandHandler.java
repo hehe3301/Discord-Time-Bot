@@ -3,13 +3,14 @@ package com.github.hehe3301.bot;
 import com.github.hehe3301.configs.Settings;
 import com.github.hehe3301.conditional_print.CP;
 import com.github.hehe3301.time_handler.TimeHandler;
-import sx.blah.discord.api.events.EventSubscriber;
+import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
 import java.util.*;
 import java.util.function.BiConsumer;
 
-public class CommandHandler {
+public class CommandHandler implements IListener<MessageReceivedEvent>
+{
     // A static map of commands mapping from command string to the functional impl
     private interface Command extends BiConsumer<MessageReceivedEvent, List<String>> {}
     private Map<String, Command> commandMap;
@@ -81,8 +82,7 @@ public class CommandHandler {
         });
     }
 
-    @EventSubscriber
-    public void onMessageReceived(MessageReceivedEvent event) {
+    public void handle(MessageReceivedEvent event) {
 
         // Note for error handling, you'll probably want to log failed commands with a logger or sout
         // In most cases it's not advised to annoy the user with a reply incase they didn't intend to trigger a
