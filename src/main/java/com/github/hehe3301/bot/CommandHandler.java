@@ -28,9 +28,11 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
             if (args.isEmpty()) {
                 rtn = "\n" + time_handler.now();
             } else {
+                StringBuilder tempStr = new StringBuilder(rtn);
                 for (String tz : args) {
-                    rtn = rtn + "\n" + time_handler.now(tz);
+                    tempStr.append("\n").append(time_handler.now(tz));
                 }
+                rtn = tempStr.toString();
             }
 
             event.getChannel().sendMessage(event.getAuthor().mention() + rtn);
@@ -43,9 +45,11 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
 
             CP.cLog(Settings.debug_enabled, "User: " + event.getAuthor().getName() + " printed the help.\n");
 
-            String printString = "Commands I know:";
+            StringBuilder printString = new StringBuilder("Commands I know:");
             for (String key : commandMap.keySet()) {
-                printString = printString + "\n" + key + ": " + helpMap.get(key);
+                printString.append(String.format(
+                        "\n%s: %s", key, helpMap.get(key)
+                ));
             }
             event.getChannel().sendMessage(event.getAuthor().mention() + "\n" + printString);
 
