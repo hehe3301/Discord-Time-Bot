@@ -12,11 +12,14 @@ import java.util.function.BiConsumer;
 public class CommandHandler {
     // A static map of commands mapping from command string to the functional impl
     private interface Command extends BiConsumer<MessageReceivedEvent, List<String>> {}
-    private static Map<String, Command> commandMap = new HashMap<>();
-    private static Map<String, String> helpMap = new HashMap<>();
+    private Map<String, Command> commandMap;
+    private Map<String, String> helpMap;
 
-    public CommandHandler() {
-        TimeHandler time_handler = new TimeHandler();
+    public CommandHandler() { this(new TimeHandler()); }
+    public CommandHandler(TimeHandler time_handler) {
+        helpMap = new HashMap<>();
+        commandMap = new HashMap<>();
+
         helpMap.put("now", Settings.com_prefix + "now prints the current time in UTC if not called with a parameter, or in the given TZ's if they exists.");
         commandMap.put("now", (event, args) -> {
 
