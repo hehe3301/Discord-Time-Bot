@@ -15,7 +15,6 @@ public class CommandHandler {
     private Map<String, Command> commandMap;
     private Map<String, String> helpMap;
 
-    public CommandHandler() { this(new TimeHandler()); }
     public CommandHandler(TimeHandler time_handler) {
         helpMap = new HashMap<>();
         commandMap = new HashMap<>();
