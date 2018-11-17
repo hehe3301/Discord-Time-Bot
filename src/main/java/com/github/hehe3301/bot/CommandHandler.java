@@ -13,11 +13,17 @@ import java.util.stream.Collectors;
 public class CommandHandler implements IListener<MessageReceivedEvent>
 {
     // A static map of commands mapping from command string to the functional impl
-    private interface Command extends BiConsumer<MessageReceivedEvent, List<String>> {}
+    private interface Command
+            extends BiConsumer<MessageReceivedEvent, List<String>> {}
     private Map<String, Command> commandMap;
     private Map<String, String> helpMap;
 
-    public CommandHandler(TimeHandler time_handler) {
+    /**
+     * A utility object that parses and executes chat commands.
+     * @param time_handler The TimeHandler utility object.
+     */
+    public CommandHandler(TimeHandler time_handler)
+    {
         String prefix = Settings.com_prefix; //TODO: pass as parameter
         helpMap = new HashMap<>();
         commandMap = new HashMap<>();
@@ -35,8 +41,7 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
             String reply = nowString(
                     event.getAuthor().mention(),
                     args,
-                    time_handler
-            );
+                    time_handler);
             event.getChannel().sendMessage(reply);
         });
 
@@ -130,7 +135,8 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
         argsList.remove(0); // Remove the command
 
         // Instead of delegating the work to a switch, automatically do it via calling the mapping if it exists
-        if(!commandMap.containsKey(commandStr)) return;
+        if(!commandMap.containsKey(commandStr))
+            return;
 
         commandMap.get(commandStr).accept(event, argsList);
     }
@@ -146,8 +152,8 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
     private static String nowString(
             String authorMention,
             Collection<String> timeZones,
-            TimeHandler timeHandler) {
-
+            TimeHandler timeHandler)
+    {
         String nowOutput;
         if (timeZones.isEmpty()) {
             nowOutput = timeHandler.now();
@@ -156,7 +162,6 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
                     .map(timeHandler::now)
                     .collect(Collectors.joining("\n"));
         }
-
         return authorMention + "\n" + nowOutput;
     }
 
@@ -168,7 +173,8 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
      */
     private static String helpString(
             String authorMention,
-            Map<String, String> helpMap) {
+            Map<String, String> helpMap)
+    {
         String helpText = helpMap.entrySet().stream()
                 .map(entry -> String.format("%s: %s",
                         entry.getKey(),
