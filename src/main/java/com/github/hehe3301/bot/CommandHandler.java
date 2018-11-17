@@ -92,12 +92,14 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
             event.getChannel().sendMessage(reply);
         });
 
-        helpMap.put("zones",Settings.com_prefix+"zones dumps all the known time zones!");
+        // Command: zones
+        helpMap.put("zones", String.format(
+                "%s lists all the known time zones.",
+                prefix + "zones"));
         commandMap.put("zones", (event, args) -> {
-
-            String printString = time_handler.dumpZones();
-            event.getChannel().sendMessage(event.getAuthor().mention()+"\n"+printString);
-
+            String reply = event.getAuthor().mention() + "\n"
+                    + time_handler.dumpZones();
+            event.getChannel().sendMessage(reply);
         });
     }
 
