@@ -22,17 +22,16 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
         helpMap = new HashMap<>();
         commandMap = new HashMap<>();
 
-        helpMap.put("now", String.format("%s prints the current time" +
-                        " in all supplied timezones, or in UTC if none" +
-                        " are given.",
+        // Command: now
+        helpMap.put("now", String.format(
+                "%s prints the current time in all supplied timezones," +
+                        " or in UTC if none are given.",
                 prefix + "now"));
         commandMap.put("now", (event, args) -> {
-
             CP.cLog(Settings.debug_enabled,
                     String.format(
                             "User: %s instructed me to get current time.\n",
                             event.getAuthor().getName()));
-
             String reply = nowString(
                     event.getAuthor().mention(),
                     args,
@@ -41,19 +40,19 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
             event.getChannel().sendMessage(reply);
         });
 
-        helpMap.put("help", Settings.com_prefix + "help prints this help message.");
+        // Command: help
+        helpMap.put("help", String.format(
+                "%s prints this help message.",
+                prefix + "help"));
         commandMap.put("help", (event, args) -> {
-
-            CP.cLog(Settings.debug_enabled, "User: " + event.getAuthor().getName() + " printed the help.\n");
-
-            StringBuilder printString = new StringBuilder("Commands I know:");
-            for (String key : commandMap.keySet()) {
-                printString.append(String.format(
-                        "\n%s: %s", key, helpMap.get(key)
-                ));
-            }
-            event.getChannel().sendMessage(event.getAuthor().mention() + "\n" + printString);
-
+            CP.cLog(Settings.debug_enabled,
+                    String.format(
+                            "User: %s printed the help.\n",
+                            event.getAuthor().getName()));
+            String reply = helpString(
+                    event.getAuthor().mention(),
+                    helpMap);
+            event.getChannel().sendMessage(reply);
         });
 
         helpMap.put("alias", Settings.com_prefix + "alias adds a alias to a timezone(s), standard is required but daylight savings is optional. ex: alias Eastern EST EDT" + " UNIMPLEMENTED");
@@ -142,5 +141,22 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
         }
 
         return authorMention + "\n" + nowOutput;
+    }
+
+    /**
+     * Concatenate all the help text into a multi-line string.
+     * @param authorMention The user's @mention code.
+     * @param helpMap The helpMap object.
+     * @return The help reply string.
+     */
+    private static String helpString(
+            String authorMention,
+            Map<String, String> helpMap) {
+        String helpText = helpMap.entrySet().stream()
+                .map(entry -> String.format("%s: %s",
+                        entry.getKey(),
+                        entry.getValue()))
+                .collect(Collectors.joining("\n"));
+        return authorMention + "\nCommands I Know:\n" + helpText;
     }
 }
