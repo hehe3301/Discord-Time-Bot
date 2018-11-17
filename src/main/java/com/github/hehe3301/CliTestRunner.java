@@ -1,19 +1,27 @@
 package com.github.hehe3301;
 
 import com.github.hehe3301.bot.CommandHandler;
+import com.github.hehe3301.configs.Settings;
 import com.github.hehe3301.test.MockDiscordClient;
 import com.github.hehe3301.test.MockMessage;
 
+import com.github.hehe3301.time_handler.TimeHandler;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IMessage;
 
 import java.util.Scanner;
 
-public class CliTestRunner {
-    public static void main(String[] args) {
+public class CliTestRunner
+{
+    private final static boolean DEBUG = true;
+
+    public static void main(String[] args)
+    {
+        String prefix = Settings.com_prefix;
         Scanner in = new Scanner(System.in);
-        CommandHandler mockBot = new CommandHandler();
+        TimeHandler th = new TimeHandler();
+        CommandHandler mockBot = new CommandHandler(prefix, th, DEBUG);
 
         IDiscordClient client = new MockDiscordClient();
         client.getDispatcher().registerListener(mockBot);
