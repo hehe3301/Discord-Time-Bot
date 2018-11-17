@@ -55,18 +55,28 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
             event.getChannel().sendMessage(reply);
         });
 
-        helpMap.put("alias", Settings.com_prefix + "alias adds a alias to a timezone(s), standard is required but daylight savings is optional. ex: alias Eastern EST EDT" + " UNIMPLEMENTED");
+        // Command: alias
+        helpMap.put("alias", String.format(
+                "%1$s adds an alias for a timezone, and optionally its" +
+                        " daylight savings version." +
+                        " ex: %1$s Eastern EST EDT" +
+                        " (UNIMPLEMENTED)",
+                prefix + "alias"));
         commandMap.put("alias", (event, args) -> {
             //TODO implement
-            event.getChannel().sendMessage(event.getAuthor().mention() + "\n" + "This feature has not been implemented yet!");
-
+            String reply = event.getAuthor().mention() + "\n"
+                    + "This feature has not been implemented yet!";
+            event.getChannel().sendMessage(reply);
         });
-        helpMap.put("aliases", Settings.com_prefix + "aliases prints the list of known aliases");
+
+        // Command: aliases
+        helpMap.put("aliases", String.format(
+                "%s prints the list of known aliases",
+                prefix + "aliases"));
         commandMap.put("aliases", (event, args) -> {
-            String printString = time_handler.getAliases();
-
-            event.getChannel().sendMessage(event.getAuthor().mention() + "\n" + printString);
-
+            String reply = event.getAuthor().mention() + "\n"
+                    + time_handler.getAliases();
+            event.getChannel().sendMessage(reply);
         });
 
         helpMap.put("time", Settings.com_prefix + "time translates a time from one timezone to another. ex: time 7pm est utc" + " UNIMPLEMENTED");
