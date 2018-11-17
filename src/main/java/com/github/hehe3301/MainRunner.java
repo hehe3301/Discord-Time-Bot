@@ -7,17 +7,21 @@ import com.github.hehe3301.configs.Settings;
 import com.github.hehe3301.time_handler.TimeHandler;
 import sx.blah.discord.api.IDiscordClient;
 
-public class MainRunner {
+public class MainRunner
+{
 
     private final static boolean DEBUG = true;
 
-    public static void main(String[] args){
+    public static void main(String[] args)
+    {
 
         String authToken;
-        if(args.length != 1) {
+        if (args.length != 1)
+        {
             System.out.println("Please enter the bots token as the first argument e.g java -jar thisjar.jar tokenhere");
             authToken = Secrets.BOT_TOKEN;
-        } else {
+        } else
+        {
             authToken = args[0];
         }
 
