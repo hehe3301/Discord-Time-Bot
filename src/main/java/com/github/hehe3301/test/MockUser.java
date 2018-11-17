@@ -9,83 +9,69 @@ import java.awt.*;
 import java.util.EnumSet;
 import java.util.List;
 
-public class MockUser implements IUser
-{
+public class MockUser implements IUser {
     @Override
-    public String getName()
-    {
+    public String getName() {
         return "DUMMY_USER";
     }
 
     @Override
-    public String getAvatar()
-    {
+    public String getAvatar() {
         return null;
     }
 
     @Override
-    public String getAvatarURL()
-    {
+    public String getAvatarURL() {
         return null;
     }
 
     @Override
-    public IPresence getPresence()
-    {
+    public IPresence getPresence() {
         return null;
     }
 
     @Override
-    public String getDisplayName(IGuild iGuild)
-    {
+    public String getDisplayName(IGuild iGuild) {
         return null;
     }
 
     @Override
-    public String mention()
-    {
+    public String mention() {
         return this.mention(true);
     }
 
     @Override
-    public String mention(boolean b)
-    {
+    public String mention(boolean b) {
         return "@DUMMY_USER";
     }
 
     @Override
-    public String getDiscriminator()
-    {
+    public String getDiscriminator() {
         return null;
     }
 
     @Override
-    public List<IRole> getRolesForGuild(IGuild iGuild)
-    {
+    public List<IRole> getRolesForGuild(IGuild iGuild) {
         return null;
     }
 
     @Override
-    public Color getColorForGuild(IGuild iGuild)
-    {
+    public Color getColorForGuild(IGuild iGuild) {
         return null;
     }
 
     @Override
-    public EnumSet<Permissions> getPermissionsForGuild(IGuild iGuild)
-    {
+    public EnumSet<Permissions> getPermissionsForGuild(IGuild iGuild) {
         return null;
     }
 
     @Override
-    public String getNicknameForGuild(IGuild iGuild)
-    {
+    public String getNicknameForGuild(IGuild iGuild) {
         return null;
     }
 
     @Override
-    public IVoiceState getVoiceStateForGuild(IGuild iGuild)
-    {
+    public IVoiceState getVoiceStateForGuild(IGuild iGuild) {
         return null;
     }
 
@@ -93,74 +79,62 @@ public class MockUser implements IUser
      * @deprecated
      */
     @Override
-    public LongMap<IVoiceState> getVoiceStatesLong()
-    {
+    public LongMap<IVoiceState> getVoiceStatesLong() {
         return null;
     }
 
     @Override
-    public LongMap<IVoiceState> getVoiceStates()
-    {
+    public LongMap<IVoiceState> getVoiceStates() {
         return null;
     }
 
     @Override
-    public void moveToVoiceChannel(IVoiceChannel iVoiceChannel)
-    {
+    public void moveToVoiceChannel(IVoiceChannel iVoiceChannel) {
 
     }
 
     @Override
-    public boolean isBot()
-    {
+    public boolean isBot() {
         return false;
     }
 
     @Override
-    public IPrivateChannel getOrCreatePMChannel()
-    {
+    public IPrivateChannel getOrCreatePMChannel() {
         return null;
     }
 
     @Override
-    public void addRole(IRole iRole)
-    {
+    public void addRole(IRole iRole) {
 
     }
 
     @Override
-    public void removeRole(IRole iRole)
-    {
+    public void removeRole(IRole iRole) {
 
     }
 
     @Override
-    public boolean hasRole(IRole iRole)
-    {
+    public boolean hasRole(IRole iRole) {
         return false;
     }
 
     @Override
-    public IDiscordClient getClient()
-    {
+    public IDiscordClient getClient() {
         return null;
     }
 
     @Override
-    public IShard getShard()
-    {
+    public IShard getShard() {
         return null;
     }
 
     @Override
-    public IUser copy()
-    {
+    public IUser copy() {
         return null;
     }
 
     @Override
-    public long getLongID()
-    {
+    public long getLongID() {
         return 0;
     }
 }

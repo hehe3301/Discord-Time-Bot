@@ -28,11 +28,9 @@ public class CliTestRunner
         client.login();
 
         System.out.println("Entering Mock Message Mode (type \"quit\" to quit).");
-        while (true)
-        {
+        while (true) {
             String userCommand = in.nextLine();
-            if ("quit".equals(userCommand))
-            {
+            if ("quit".equals(userCommand)) {
                 System.exit(0);
             }
             IMessage mockMessage = new MockMessage(userCommand);

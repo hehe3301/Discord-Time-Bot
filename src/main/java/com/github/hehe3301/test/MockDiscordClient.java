@@ -10,13 +10,10 @@ import sx.blah.discord.util.Image;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class MockDiscordClient implements IDiscordClient
-{
+public class MockDiscordClient implements IDiscordClient {
 
     private EventDispatcher dispatcher;
-
-    public MockDiscordClient()
-    {
+    public MockDiscordClient() {
         // Defaults taken from EventDispatcher source code, but with our mock
         // client in place of the real one.
         this.dispatcher = new EventDispatcher(
@@ -31,320 +28,267 @@ public class MockDiscordClient implements IDiscordClient
     }
 
     @Override
-    public EventDispatcher getDispatcher()
-    {
+    public EventDispatcher getDispatcher() {
         return this.dispatcher;
     }
 
     @Override
-    public ModuleLoader getModuleLoader()
-    {
+    public ModuleLoader getModuleLoader() {
         return null;
     }
 
     @Override
-    public List<IShard> getShards()
-    {
+    public List<IShard> getShards() {
         return null;
     }
 
     @Override
-    public int getShardCount()
-    {
+    public int getShardCount() {
         return 0;
     }
 
     @Override
-    public String getToken()
-    {
+    public String getToken() {
         return null;
     }
 
     @Override
-    public void login()
-    {
+    public void login() {
 
     }
 
     @Override
-    public void logout()
-    {
+    public void logout() {
 
     }
 
     @Override
-    public void changeUsername(String s)
-    {
+    public void changeUsername(String s) {
 
     }
 
     @Override
-    public void changeAvatar(Image image)
-    {
+    public void changeAvatar(Image image) {
 
     }
 
     @Override
-    public void changePlayingText(String s)
-    {
+    public void changePlayingText(String s) {
 
     }
 
     @Override
-    public void online(String s)
-    {
+    public void online(String s) {
 
     }
 
     @Override
-    public void online()
-    {
+    public void online() {
 
     }
 
     @Override
-    public void idle(String s)
-    {
+    public void idle(String s) {
 
     }
 
     @Override
-    public void idle()
-    {
+    public void idle() {
 
     }
 
     @Override
-    public void streaming(String s, String s1)
-    {
+    public void streaming(String s, String s1) {
 
     }
 
     @Override
-    public void dnd(String s)
-    {
+    public void dnd(String s) {
 
     }
 
     @Override
-    public void dnd()
-    {
+    public void dnd() {
 
     }
 
     @Override
-    public void invisible()
-    {
+    public void invisible() {
 
     }
 
     @Override
-    public void mute(IGuild iGuild, boolean b)
-    {
+    public void mute(IGuild iGuild, boolean b) {
 
     }
 
     @Override
-    public void deafen(IGuild iGuild, boolean b)
-    {
+    public void deafen(IGuild iGuild, boolean b) {
 
     }
 
     @Override
-    public boolean isReady()
-    {
+    public boolean isReady() {
         return false;
     }
 
     @Override
-    public boolean isLoggedIn()
-    {
+    public boolean isLoggedIn() {
         return false;
     }
 
     @Override
-    public IUser getOurUser()
-    {
+    public IUser getOurUser() {
         return null;
     }
 
     @Override
-    public List<IChannel> getChannels(boolean b)
-    {
+    public List<IChannel> getChannels(boolean b) {
         return null;
     }
 
     @Override
-    public List<IChannel> getChannels()
-    {
+    public List<IChannel> getChannels() {
         return null;
     }
 
     @Override
-    public IChannel getChannelByID(long l)
-    {
+    public IChannel getChannelByID(long l) {
         return null;
     }
 
     @Override
-    public List<IVoiceChannel> getVoiceChannels()
-    {
+    public List<IVoiceChannel> getVoiceChannels() {
         return null;
     }
 
     @Override
-    public IVoiceChannel getVoiceChannelByID(long l)
-    {
+    public IVoiceChannel getVoiceChannelByID(long l) {
         return null;
     }
 
     @Override
-    public List<IGuild> getGuilds()
-    {
+    public List<IGuild> getGuilds() {
         return null;
     }
 
     @Override
-    public IGuild getGuildByID(long l)
-    {
+    public IGuild getGuildByID(long l) {
         return null;
     }
 
     @Override
-    public List<IUser> getUsers()
-    {
+    public List<IUser> getUsers() {
         return null;
     }
 
     @Override
-    public IUser getUserByID(long l)
-    {
+    public IUser getUserByID(long l) {
         return null;
     }
 
     @Override
-    public IUser fetchUser(long l)
-    {
+    public IUser fetchUser(long l) {
         return null;
     }
 
     @Override
-    public List<IUser> getUsersByName(String s)
-    {
+    public List<IUser> getUsersByName(String s) {
         return null;
     }
 
     @Override
-    public List<IUser> getUsersByName(String s, boolean b)
-    {
+    public List<IUser> getUsersByName(String s, boolean b) {
         return null;
     }
 
     @Override
-    public List<IRole> getRoles()
-    {
+    public List<IRole> getRoles() {
         return null;
     }
 
     @Override
-    public IRole getRoleByID(long l)
-    {
+    public IRole getRoleByID(long l) {
         return null;
     }
 
     @Override
-    public List<IMessage> getMessages(boolean b)
-    {
+    public List<IMessage> getMessages(boolean b) {
         return null;
     }
 
     @Override
-    public List<IMessage> getMessages()
-    {
+    public List<IMessage> getMessages() {
         return null;
     }
 
     @Override
-    public IMessage getMessageByID(long l)
-    {
+    public IMessage getMessageByID(long l) {
         return null;
     }
 
     @Override
-    public IPrivateChannel getOrCreatePMChannel(IUser iUser)
-    {
+    public IPrivateChannel getOrCreatePMChannel(IUser iUser) {
         return null;
     }
 
     @Override
-    public IInvite getInviteForCode(String s)
-    {
+    public IInvite getInviteForCode(String s) {
         return null;
     }
 
     @Override
-    public List<IRegion> getRegions()
-    {
+    public List<IRegion> getRegions() {
         return null;
     }
 
     @Override
-    public IRegion getRegionByID(String s)
-    {
+    public IRegion getRegionByID(String s) {
         return null;
     }
 
     @Override
-    public List<IVoiceChannel> getConnectedVoiceChannels()
-    {
+    public List<IVoiceChannel> getConnectedVoiceChannels() {
         return null;
     }
 
     @Override
-    public String getApplicationDescription()
-    {
+    public String getApplicationDescription() {
         return null;
     }
 
     @Override
-    public String getApplicationIconURL()
-    {
+    public String getApplicationIconURL() {
         return null;
     }
 
     @Override
-    public String getApplicationClientID()
-    {
+    public String getApplicationClientID() {
         return null;
     }
 
     @Override
-    public String getApplicationName()
-    {
+    public String getApplicationName() {
         return null;
     }
 
     @Override
-    public IUser getApplicationOwner()
-    {
+    public IUser getApplicationOwner() {
         return null;
     }
 
     @Override
-    public List<ICategory> getCategories()
-    {
+    public List<ICategory> getCategories() {
         return null;
     }
 
     @Override
-    public ICategory getCategoryByID(long l)
-    {
+    public ICategory getCategoryByID(long l) {
         return null;
     }
 
     @Override
-    public List<ICategory> getCategoriesByName(String s)
-    {
+    public List<ICategory> getCategoriesByName(String s) {
         return null;
     }
 }
