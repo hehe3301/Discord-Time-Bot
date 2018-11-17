@@ -27,8 +27,13 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
                         " are given.",
                 prefix + "now"));
         commandMap.put("now", (event, args) -> {
+
+            CP.cLog(Settings.debug_enabled,
+                    String.format(
+                            "User: %s instructed me to get current time.\n",
+                            event.getAuthor().getName()));
+
             String reply = nowString(
-                    event.getAuthor().getName(),
                     event.getAuthor().mention(),
                     args,
                     time_handler
@@ -117,22 +122,15 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
     /**
      * Reply with the current time in all supplied timezones, or in
      * UTC by default.
-     * @param authorName The user who requested the time.
      * @param authorMention The user's @mention code.
      * @param timeZones The set of time zones to check.
      * @param timeHandler The timezone utility object.
      * @return A formatted reply string.
      */
     private static String nowString(
-            String authorName,
             String authorMention,
             Collection<String> timeZones,
             TimeHandler timeHandler) {
-
-        CP.cLog(Settings.debug_enabled,
-                String.format(
-                        "User: %s instructed me to get current time.\n",
-                        authorName));
 
         String nowOutput;
         if (timeZones.isEmpty()) {
