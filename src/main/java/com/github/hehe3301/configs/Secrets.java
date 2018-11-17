@@ -13,5 +13,5 @@ public class Secrets
     {
     }
 
-    public static String BOT_TOKEN = "NDkzMTE4MTk3NjM4MjM0MTEz.Dpo_kg.2Jh99MbP2B8DUTNMqqQ-Zh0TJhU";
+    public static String BOT_TOKEN = "TOKEN HERE";
 }
