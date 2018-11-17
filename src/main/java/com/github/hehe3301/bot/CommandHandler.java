@@ -82,6 +82,7 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
         });
     }
 
+    @Override
     public void handle(MessageReceivedEvent event) {
 
         // Note for error handling, you'll probably want to log failed commands with a logger or sout
