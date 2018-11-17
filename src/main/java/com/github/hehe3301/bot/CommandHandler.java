@@ -79,12 +79,17 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
             event.getChannel().sendMessage(reply);
         });
 
-        helpMap.put("time", Settings.com_prefix + "time translates a time from one timezone to another. ex: time 7pm est utc" + " UNIMPLEMENTED");
+        // Command: time
+        // TODO: Consider renaming this one? -nupa
+        helpMap.put("time", String.format(
+                "%s translates a time from one timezone to another. " +
+                        "ex: %1$s 7pm est utc (UNIMPLEMENTED)",
+                prefix + "time"));
         commandMap.put("time", (event, args) -> {
-
             //TODO implement
-            event.getChannel().sendMessage(event.getAuthor().mention() + "\n" + "This feature has not been implemented yet!");
-
+            String reply = event.getAuthor().mention() + "\n"
+                    + "This feature has not been implemented yet!";
+            event.getChannel().sendMessage(reply);
         });
 
         helpMap.put("zones",Settings.com_prefix+"zones dumps all the known time zones!");
