@@ -8,6 +8,7 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 public class CommandHandler implements IListener<MessageReceivedEvent>
 {
@@ -17,27 +18,22 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
     private Map<String, String> helpMap;
 
     public CommandHandler(TimeHandler time_handler) {
+        String prefix = Settings.com_prefix; //TODO: pass as parameter
         helpMap = new HashMap<>();
         commandMap = new HashMap<>();
 
-        helpMap.put("now", Settings.com_prefix + "now prints the current time in UTC if not called with a parameter, or in the given TZ's if they exists.");
+        helpMap.put("now", String.format("%s prints the current time" +
+                        " in all supplied timezones, or in UTC if none" +
+                        " are given.",
+                prefix + "now"));
         commandMap.put("now", (event, args) -> {
-
-            CP.cLog(Settings.debug_enabled, "User: " + event.getAuthor().getName() + " instructed me to get current time.\n");
-            String rtn = "";
-            if (args.isEmpty()) {
-                rtn = "\n" + time_handler.now();
-            } else {
-                StringBuilder tempStr = new StringBuilder(rtn);
-                for (String tz : args) {
-                    tempStr.append("\n").append(time_handler.now(tz));
-                }
-                rtn = tempStr.toString();
-            }
-
-            event.getChannel().sendMessage(event.getAuthor().mention() + rtn);
-
-
+            String reply = nowString(
+                    event.getAuthor().getName(),
+                    event.getAuthor().mention(),
+                    args,
+                    time_handler
+            );
+            event.getChannel().sendMessage(reply);
         });
 
         helpMap.put("help", Settings.com_prefix + "help prints this help message.");
@@ -112,9 +108,40 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
         argsList.remove(0); // Remove the command
 
         // Instead of delegating the work to a switch, automatically do it via calling the mapping if it exists
-        if(commandMap.containsKey(commandStr))
-        {
-            commandMap.get(commandStr).accept(event, argsList);
+        if(!commandMap.containsKey(commandStr)) return;
+
+        commandMap.get(commandStr).accept(event, argsList);
+    }
+
+    /**
+     * Reply with the current time in all supplied timezones, or in
+     * UTC by default.
+     * @param authorName The user who requested the time.
+     * @param authorMention The user's @mention code.
+     * @param timeZones The set of time zones to check.
+     * @param timeHandler The timezone utility object.
+     * @return A formatted reply string.
+     */
+    private static String nowString(
+            String authorName,
+            String authorMention,
+            Collection<String> timeZones,
+            TimeHandler timeHandler) {
+
+        CP.cLog(Settings.debug_enabled,
+                String.format(
+                        "User: %s instructed me to get current time.\n",
+                        authorName));
+
+        String nowOutput;
+        if (timeZones.isEmpty()) {
+            nowOutput = timeHandler.now();
+        } else {
+            nowOutput = timeZones.stream()
+                    .map(timeHandler::now)
+                    .collect(Collectors.joining("\n"));
         }
+
+        return authorMention + "\n" + nowOutput;
     }
 }
