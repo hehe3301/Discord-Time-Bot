@@ -10,9 +10,11 @@ import sx.blah.discord.util.RequestBuffer;
 /**
  * Created by declan on 03/04/2017.
  */
-public class BotUtils {
+public class BotUtils
+{
     // Handles the creation and getting of a IDiscordClient object for a token
-    public static IDiscordClient getBuiltDiscordClient(String token){
+    public static IDiscordClient getBuiltDiscordClient(String token)
+    {
 
         // The ClientBuilder object is where you will attach your params for configuring the instance of your bot.
         // Such as withToken, setDaemon etc
@@ -24,13 +26,17 @@ public class BotUtils {
     }
 
     // Helper functions to make certain aspects of the bot easier to use.
-    public static void sendMessage(IChannel channel, String message){
+    public static void sendMessage(IChannel channel, String message)
+    {
 
         // This might look weird but it'll be explained in another page.
-        RequestBuffer.request(() -> {
-            try{
+        RequestBuffer.request(() ->
+        {
+            try
+            {
                 channel.sendMessage(message);
-            } catch (DiscordException e){
+            } catch (DiscordException e)
+            {
                 System.err.println("Message could not be sent with error: ");
                 e.printStackTrace();
             }
