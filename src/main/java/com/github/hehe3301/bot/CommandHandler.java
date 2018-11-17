@@ -1,6 +1,5 @@
 package com.github.hehe3301.bot;
 
-import com.github.hehe3301.configs.Settings;
 import com.github.hehe3301.conditional_print.CP;
 import com.github.hehe3301.time_handler.TimeHandler;
 import sx.blah.discord.api.events.IListener;
@@ -17,16 +16,22 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
             extends BiConsumer<MessageReceivedEvent, List<String>> {}
     private Map<String, Command> commandMap;
     private Map<String, String> helpMap;
+    private String prefix;
 
     /**
      * A utility object that parses and executes chat commands.
-     * @param time_handler The TimeHandler utility object.
+     * @param prefix The prefix for commands, as in !command.
+     * @param timeHandler The TimeHandler utility object.
+     * @param debugEnabled Whether or not to log debug messages.
      */
-    public CommandHandler(TimeHandler time_handler)
+    public CommandHandler(
+            String prefix,
+            TimeHandler timeHandler,
+            boolean debugEnabled)
     {
-        String prefix = Settings.com_prefix; //TODO: pass as parameter
-        helpMap = new HashMap<>();
-        commandMap = new HashMap<>();
+        this.helpMap = new HashMap<>();
+        this.commandMap = new HashMap<>();
+        this.prefix = prefix;
 
         // Command: now
         helpMap.put("now", String.format(
@@ -34,14 +39,13 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
                         " or in UTC if none are given.",
                 prefix + "now"));
         commandMap.put("now", (event, args) -> {
-            CP.cLog(Settings.debug_enabled,
-                    String.format(
-                            "User: %s instructed me to get current time.\n",
-                            event.getAuthor().getName()));
+            CP.cLog(debugEnabled, String.format(
+                    "User: %s instructed me to get current time.\n",
+                    event.getAuthor().getName()));
             String reply = nowString(
                     event.getAuthor().mention(),
                     args,
-                    time_handler);
+                    timeHandler);
             event.getChannel().sendMessage(reply);
         });
 
@@ -50,10 +54,9 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
                 "%s prints this help message.",
                 prefix + "help"));
         commandMap.put("help", (event, args) -> {
-            CP.cLog(Settings.debug_enabled,
-                    String.format(
-                            "User: %s printed the help.\n",
-                            event.getAuthor().getName()));
+            CP.cLog(debugEnabled, String.format(
+                    "User: %s printed the help.\n",
+                    event.getAuthor().getName()));
             String reply = helpString(
                     event.getAuthor().mention(),
                     helpMap);
@@ -80,7 +83,7 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
                 prefix + "aliases"));
         commandMap.put("aliases", (event, args) -> {
             String reply = event.getAuthor().mention() + "\n"
-                    + time_handler.getAliases();
+                    + timeHandler.getAliases();
             event.getChannel().sendMessage(reply);
         });
 
@@ -103,7 +106,7 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
                 prefix + "zones"));
         commandMap.put("zones", (event, args) -> {
             String reply = event.getAuthor().mention() + "\n"
-                    + time_handler.dumpZones();
+                    + timeHandler.dumpZones();
             event.getChannel().sendMessage(reply);
         });
     }
@@ -124,11 +127,11 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
             return;
 
         // Check if the first arg (the command) starts with the prefix defined in the utils class
-        if(!argArray[0].startsWith(Settings.com_prefix))
+        if(!argArray[0].startsWith(prefix))
             return;
 
         // Extract the "command" part of the first arg out by ditching the amount of characters present in the prefix
-        String commandStr = argArray[0].substring(Settings.com_prefix.length());
+        String commandStr = argArray[0].substring(prefix.length());
 
         // Load the rest of the args in the array into a List for safer access
         List<String> argsList = new ArrayList<>(Arrays.asList(argArray));
