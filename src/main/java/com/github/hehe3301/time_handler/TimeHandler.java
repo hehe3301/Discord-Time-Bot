@@ -57,6 +57,26 @@ public class TimeHandler
         return "The time is now: " + justTime.format(time) + " " + p_time_zone;
     }
 
+    public TimeHandler()
+    {
+        loadAliases();
+    }
+
+    public String getAliases()
+    {
+        String printString = "Aliases I know:";
+        for (String key : aliasMap.keySet())
+        {
+            printString = printString + "\n" + key + "=\t Standard Time: " + aliasMap.get(key).get(0) + ",\t Daylight Savings Time: " + aliasMap.get(key).get(1);
+        }
+        return printString;
+    }
+
+    public String dumpZones()
+    {
+        return "Just go look at: https://github.com/hehe3301/Discord-Time-Bot";
+    }
+
     private void loadAliases()
     {
         String csvFile = Settings.alias_file;
@@ -113,23 +133,50 @@ public class TimeHandler
 
     }
 
-    public TimeHandler()
-    {
-        loadAliases();
-    }
 
-    public String getAliases()
+    public String cleanTime(List<String> p_time_list)
     {
-        String printString = "Aliases I know:";
-        for (String key : aliasMap.keySet())
-        {
-            printString = printString + "\n" + key + "=\t Standard Time: " + aliasMap.get(key).get(0) + ",\t Daylight Savings Time: " + aliasMap.get(key).get(1);
+        String time_list = "Converted time(s):\n";
+        for (Iterator<String> i = p_time_list.iterator(); i.hasNext();) {
+            String item = i.next();
+            time_list = time_list + cleanTime(item) + "\n";
         }
-        return printString;
+        return time_list;
     }
 
-    public String dumpZones()
+    private String cleanTime(String p_time)
     {
-        return "Just go look at: https://github.com/hehe3301/Discord-Time-Bot";
+        CP.cLog(Settings.debug_enabled, "Cleaning time:"+p_time);
+        if( p_time.contains(":") )
+        {
+            return cleanTime(p_time.replace(":", ""));
+        }
+        else if ( p_time.contains("am") )
+        {
+            return cleanTime(p_time.toLowerCase().replace("am", ""));
+        }
+        else if ( p_time.contains("pm") )
+        {
+            String tmp = p_time.toLowerCase().replace("pm", "");
+            if(tmp.length()<3)
+            {
+                tmp = Integer.toString(Integer.parseInt(tmp)+12) + "00";
+            }
+            else
+            {
+                tmp= Integer.toString(Integer.parseInt(tmp.substring(0, tmp.length()-2))+12)+tmp.substring(tmp.length()-2, tmp.length()) ;
+            }
+            return cleanTime(tmp);
+        }
+        else if (p_time.length()<3)
+        {
+            return cleanTime(p_time+"00");
+        }
+        else if (p_time.length()<4)
+        {
+            return cleanTime("0"+p_time);
+        }
+        return p_time;
     }
+
 }

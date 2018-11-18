@@ -120,6 +120,17 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
                     + timeHandler.dumpZones();
             event.getChannel().sendMessage(reply);
         });
+
+        // Command: clean
+        helpMap.put("clean", String.format(
+                "%s converts a time to military time.",
+                prefix + "clean"));
+        commandMap.put("clean", (event, args) ->
+        {
+            String reply = event.getAuthor().mention() + "\n"
+                    + timeHandler.cleanTime(args);
+            event.getChannel().sendMessage(reply);
+        });
     }
 
     @Override
