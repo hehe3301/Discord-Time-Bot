@@ -11,7 +11,6 @@ import sx.blah.discord.util.MessageHistory;
 import sx.blah.discord.util.cache.LongMap;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.EnumSet;

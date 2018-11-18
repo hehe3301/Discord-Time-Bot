@@ -1,6 +1,5 @@
 package com.github.hehe3301.bot;
 
-import com.github.hehe3301.time_handler.TimeHandler;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IChannel;
