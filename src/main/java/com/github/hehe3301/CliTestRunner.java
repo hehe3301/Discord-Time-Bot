@@ -4,7 +4,6 @@ import com.github.hehe3301.bot.CommandHandler;
 import com.github.hehe3301.configs.Settings;
 import com.github.hehe3301.test.MockDiscordClient;
 import com.github.hehe3301.test.MockMessage;
-
 import com.github.hehe3301.time_handler.TimeHandler;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;

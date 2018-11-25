@@ -19,19 +19,38 @@ public class TimeHandler
 
     private Map<String, ArrayList<String>> aliasMap = new HashMap<>();
 
+    /**
+     * Default parametered now that just returns now at UTC
+     * @return - current time at UTC
+     */
     public String now()
     {
         return now("UTC");
     }
 
+    /**
+     * This function gets the current time at a specified times zone.
+     * @param p_time_zone - a time zone.
+     * @return  - current time at p_time_zone
+     */
     public String now(String p_time_zone)
     {
         CP.cLog(Settings.debug_enabled, "Calling now on: " + p_time_zone + "\n");
         //If we have an alias, un-alias
         String time_zone = unAlias(p_time_zone);
-        CP.cLog(Settings.debug_enabled, "After unAlias: " + time_zone + "\n");
 
-        if (!(Arrays.asList(TimeZone.getAvailableIDs()).contains(time_zone)))
+        //if the time zone is valid
+        if(Arrays.asList(TimeZone.getAvailableIDs()).contains(time_zone) )
+        {
+            //do nothing
+        }
+        else if(Arrays.asList(TimeZone.getAvailableIDs()).contains(time_zone.toUpperCase()))
+            //else if the uppercase version of the TZ is in the list
+        {
+            time_zone=time_zone.toUpperCase();
+        }
+        else
+            //this must be an invalid time zone
         {
             return "Invalid time zone: " + p_time_zone;
         }
@@ -77,14 +96,17 @@ public class TimeHandler
         return "Just go look at: https://github.com/hehe3301/Discord-Time-Bot";
     }
 
+    /**
+     * This function loads the aliases from the alias file in Settings
+     */
     private void loadAliases()
     {
         String csvFile = Settings.alias_file;
         String line = "";
         String cvsSplitBy = ",";
 
-        String basePath = new File("").getAbsolutePath();
-        System.out.println(basePath);
+        String basePath = new File("").getAbsolutePath();//where am i?
+        CP.cLog(Settings.debug_enabled, basePath+"\n");
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
         {
@@ -110,6 +132,11 @@ public class TimeHandler
 
     }
 
+    /**
+     * This function takes in a string and checks to see if that is a known alias and returns the unaliased string.
+     * @param thing - the string to unalias
+     * @return - the unaliased string or original if none found.
+     */
     private String unAlias(String thing)
     {
         CP.cLog(Settings.debug_enabled, "Checking for alias: " + thing + "\n");
@@ -144,6 +171,11 @@ public class TimeHandler
         return time_list;
     }
 
+
+    /**
+     * This function just returns a string of all known aliases
+     * @return
+     */
     private String cleanTime(String p_time)
     {
         CP.cLog(Settings.debug_enabled, "Cleaning time:"+p_time);
@@ -178,5 +210,4 @@ public class TimeHandler
         }
         return p_time;
     }
-
 }
