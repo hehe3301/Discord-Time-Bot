@@ -38,3 +38,6 @@ buildNumber.properties
 .idea/
 *.iml
 
+# Don't commit bot token to repo!
+secrets.yaml
+
