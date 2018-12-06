@@ -39,5 +39,6 @@ buildNumber.properties
 *.iml
 
 # Don't commit bot token to repo!
-secrets.yaml
+config.yaml
+testConfig.yaml
 

@@ -6,11 +6,9 @@ import java.io.InputStream;
 
 public class Configuration
 {
-    public String bot_token = "INSERT BOT TOKEN";
+    public String bot_token = null;
     public String com_prefix = ">>";
     public boolean debug_enabled = true;
-    public String timezone_file = "src/main/resources/short.csv";
-    public String alias_file = "src/main/resources/aliases.csv";
 
     public static Configuration from(InputStream in)
     {
@@ -22,6 +20,11 @@ public class Configuration
     {
         Yaml yaml = new Yaml();
         return yaml.loadAs(in, Configuration.class);
+    }
+
+    public static Configuration defaults()
+    {
+        return new Configuration();
     }
 
     public String toYaml()
