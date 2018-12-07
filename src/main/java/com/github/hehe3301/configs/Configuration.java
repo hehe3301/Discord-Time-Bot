@@ -9,6 +9,7 @@ public class Configuration
     public String bot_token = null;
     public String com_prefix = ">>";
     public boolean debug_enabled = true;
+    public String alias_file = "src/main/resources/aliases.csv";
 
     public static Configuration from(InputStream in)
     {

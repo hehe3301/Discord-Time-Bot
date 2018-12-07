@@ -3,8 +3,6 @@ package com.github.hehe3301;
 import com.github.hehe3301.bot.BotUtils;
 import com.github.hehe3301.bot.CommandHandler;
 import com.github.hehe3301.configs.Configuration;
-import com.github.hehe3301.configs.Secrets;
-import com.github.hehe3301.configs.Settings;
 import com.github.hehe3301.time_handler.TimeHandler;
 import sx.blah.discord.api.IDiscordClient;
 
@@ -48,7 +46,7 @@ public class MainRunner
         IDiscordClient cli = BotUtils.getBuiltDiscordClient(config.bot_token);
 
         // Register a listener via the EventSubscriber annotation which allows for organisation and delegation of events
-        TimeHandler th = new TimeHandler();
+        TimeHandler th = new TimeHandler(config);
         CommandHandler ch = new CommandHandler(config.com_prefix, th, config.debug_enabled);
         cli.getDispatcher().registerListener(ch);
 
