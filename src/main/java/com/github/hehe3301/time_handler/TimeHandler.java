@@ -182,7 +182,7 @@ public class TimeHandler
      */
     private String cleanTime(String p_time)
     {
-        CP.cLog(Settings.debug_enabled, "Cleaning time:"+p_time+"\n");
+        CP.cLog(config.debug_enabled, "Cleaning time:"+p_time+"\n");
         if( p_time.contains(":") )
         {
             return cleanTime(p_time.replace(":", ""));
@@ -221,7 +221,7 @@ public class TimeHandler
         String dest_time_zone = unAlias(p_dest);
         String clean_time=cleanTime(p_time);
 
-        CP.cLog(Settings.debug_enabled, "\nTranslating time: "+clean_time+" from "+src_time_zone+" to "+dest_time_zone+"\n");
+        CP.cLog(config.debug_enabled, "\nTranslating time: "+clean_time+" from "+src_time_zone+" to "+dest_time_zone+"\n");
 
         //if the time zone is valid
         if(Arrays.asList(TimeZone.getAvailableIDs()).contains(src_time_zone) &&
