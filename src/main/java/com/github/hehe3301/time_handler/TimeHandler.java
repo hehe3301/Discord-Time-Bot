@@ -1,7 +1,7 @@
 package com.github.hehe3301.time_handler;
 
 import com.github.hehe3301.conditional_print.CP;
-import com.github.hehe3301.configs.Settings;
+import com.github.hehe3301.configs.Configuration;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,7 +16,7 @@ import java.util.*;
  */
 public class TimeHandler
 {
-
+    private Configuration config;
     private Map<String, ArrayList<String>> aliasMap = new HashMap<>();
 
     /**
@@ -35,9 +35,10 @@ public class TimeHandler
      */
     public String now(String p_time_zone)
     {
-        CP.cLog(Settings.debug_enabled, "Calling now on: " + p_time_zone + "\n");
+        CP.cLog(config.debug_enabled, "Calling now on: " + p_time_zone + "\n");
         //If we have an alias, un-alias
         String time_zone = unAlias(p_time_zone);
+        CP.cLog(config.debug_enabled, "After unAlias: " + time_zone + "\n");
 
         //if the time zone is valid
         if(Arrays.asList(TimeZone.getAvailableIDs()).contains(time_zone) )
@@ -76,8 +77,9 @@ public class TimeHandler
         return "The time is now: " + justTime.format(time) + " " + p_time_zone;
     }
 
-    public TimeHandler()
+    public TimeHandler(Configuration config)
     {
+        this.config = config;
         loadAliases();
     }
 
@@ -101,12 +103,12 @@ public class TimeHandler
      */
     private void loadAliases()
     {
-        String csvFile = Settings.alias_file;
+        String csvFile = config.alias_file;
         String line = "";
         String cvsSplitBy = ",";
 
         String basePath = new File("").getAbsolutePath();//where am i?
-        CP.cLog(Settings.debug_enabled, basePath+"\n");
+        CP.cLog(config.debug_enabled, basePath+"\n");
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
         {
@@ -120,15 +122,17 @@ public class TimeHandler
                 aliasMap.put(alias, new ArrayList());
                 aliasMap.get(alias).add(0, alias_line[1].replaceAll("\"", "").toUpperCase());
                 aliasMap.get(alias).add(1, alias_line[2].replaceAll("\"", "").toUpperCase());
-                CP.cLog(Settings.debug_enabled, "Adding: " + alias + " as " + aliasMap.get(alias).get(0) + ", " + aliasMap.get(alias).get(1) + "\n");
-
+                CP.cLog(config.debug_enabled, String.format("Adding %s as %s, %s \n",
+                        alias,
+                        aliasMap.get(alias).get(0),
+                        aliasMap.get(alias).get(1)));
             }
         } catch (IOException e)
         {
             e.printStackTrace();
         }
 
-        CP.cLog(Settings.debug_enabled, "Aliases loaded: " + aliasMap.size() + "\n");
+        CP.cLog(config.debug_enabled, "Aliases loaded: " + aliasMap.size() + "\n");
 
     }
 
@@ -139,7 +143,7 @@ public class TimeHandler
      */
     private String unAlias(String thing)
     {
-        CP.cLog(Settings.debug_enabled, "Checking for alias: " + thing + "\n");
+        CP.cLog(config.debug_enabled, "Checking for alias: " + thing + "\n");
         String tz = thing;
 
         //If we have an alias for this
@@ -178,7 +182,7 @@ public class TimeHandler
      */
     private String cleanTime(String p_time)
     {
-        CP.cLog(Settings.debug_enabled, "Cleaning time:"+p_time);
+        CP.cLog(config.debug_enabled, "Cleaning time:"+p_time);
         if( p_time.contains(":") )
         {
             return cleanTime(p_time.replace(":", ""));
