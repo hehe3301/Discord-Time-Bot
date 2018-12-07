@@ -182,16 +182,16 @@ public class TimeHandler
      */
     private String cleanTime(String p_time)
     {
-        CP.cLog(config.debug_enabled, "Cleaning time:"+p_time);
+        CP.cLog(Settings.debug_enabled, "Cleaning time:"+p_time+"\n");
         if( p_time.contains(":") )
         {
             return cleanTime(p_time.replace(":", ""));
         }
-        else if ( p_time.contains("am") )
+        else if ( p_time.toLowerCase().contains("am") )
         {
             return cleanTime(p_time.toLowerCase().replace("am", ""));
         }
-        else if ( p_time.contains("pm") )
+        else if ( p_time.toLowerCase().contains("pm") )
         {
             String tmp = p_time.toLowerCase().replace("pm", "");
             if(tmp.length()<3)
@@ -213,5 +213,65 @@ public class TimeHandler
             return cleanTime("0"+p_time);
         }
         return p_time;
+    }
+
+    public String translateTime(String p_time, String p_source, String p_dest)
+    {
+        String src_time_zone = unAlias(p_source);
+        String dest_time_zone = unAlias(p_dest);
+        String clean_time=cleanTime(p_time);
+
+        CP.cLog(Settings.debug_enabled, "\nTranslating time: "+clean_time+" from "+src_time_zone+" to "+dest_time_zone+"\n");
+
+        //if the time zone is valid
+        if(Arrays.asList(TimeZone.getAvailableIDs()).contains(src_time_zone) &&
+                Arrays.asList(TimeZone.getAvailableIDs()).contains(dest_time_zone))
+        {
+            //do nothing
+        }
+        else if(Arrays.asList(TimeZone.getAvailableIDs()).contains(src_time_zone.toUpperCase()))
+        //else if the uppercase version of the TZ is in the list
+        {
+            src_time_zone=src_time_zone.toUpperCase();
+
+            if(Arrays.asList(TimeZone.getAvailableIDs()).contains(dest_time_zone.toUpperCase()))
+            //if the uppercase version of the TZ is in the list
+            {
+                dest_time_zone=dest_time_zone.toUpperCase();
+            }
+        }
+        else if(Arrays.asList(TimeZone.getAvailableIDs()).contains(dest_time_zone.toUpperCase()))
+        //else if the uppercase version of the TZ is in the list
+        {
+            dest_time_zone=dest_time_zone.toUpperCase();
+
+            if(Arrays.asList(TimeZone.getAvailableIDs()).contains(src_time_zone.toUpperCase()))
+            //if the uppercase version of the TZ is in the list
+            {
+                src_time_zone=src_time_zone.toUpperCase();
+            }
+        }
+        else
+        //this must be an invalid time zone
+        {
+            return "Invalid time zone: " + p_source+" or "+ p_dest;
+        }
+
+        Calendar src_time = Calendar.getInstance(TimeZone.getTimeZone(src_time_zone));
+
+        src_time.set(Calendar.HOUR_OF_DAY, Integer.parseInt(clean_time.substring(0,2)));
+        src_time.set(Calendar.MINUTE, Integer.parseInt(clean_time.substring(2,4)));
+
+        Calendar dest_time = new GregorianCalendar(TimeZone.getTimeZone(dest_time_zone));
+        dest_time.setTimeInMillis(src_time.getTimeInMillis());
+
+        String string_time = Integer.toString(dest_time.get(Calendar.HOUR_OF_DAY)) + Integer.toString(dest_time.get(Calendar.MINUTE));
+
+        return p_time+" in " +p_source+" is "+cleanTime(string_time)+" in "+p_dest;
+    }
+
+    public String translateTime(String p_time, String p_source)
+    {
+        return translateTime(p_time, p_source, "UTC");
     }
 }

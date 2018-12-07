@@ -105,8 +105,25 @@ public class CommandHandler implements IListener<MessageReceivedEvent>
         commandMap.put("time", (event, args) ->
         {
             //TODO implement
-            String reply = event.getAuthor().mention() + "\n"
-                    + "This feature has not been implemented yet!";
+            String reply = event.getAuthor().mention() + "\n";
+            switch(args.size())
+            {
+                case 0:
+                    reply = reply + timeHandler.now();
+                    break;
+                case 1:
+                    reply = reply + timeHandler.translateTime(args.get(0), "UTC");
+                    break;
+                case 2:
+                    reply = reply + timeHandler.translateTime(args.get(0), args.get(1));
+                    break;
+                case 3:
+                    reply = reply + timeHandler.translateTime(args.get(0), args.get(1), args.get(2));
+                    break;
+                default:
+                    reply = reply + "INVALID COMMAND USE";
+                    break;
+            }
             event.getChannel().sendMessage(reply);
         });
 
