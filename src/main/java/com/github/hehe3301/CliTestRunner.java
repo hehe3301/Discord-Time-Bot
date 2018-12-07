@@ -1,7 +1,7 @@
 package com.github.hehe3301;
 
 import com.github.hehe3301.bot.CommandHandler;
-import com.github.hehe3301.configs.Settings;
+import com.github.hehe3301.configs.Configuration;
 import com.github.hehe3301.test.MockDiscordClient;
 import com.github.hehe3301.test.MockMessage;
 import com.github.hehe3301.time_handler.TimeHandler;
@@ -13,14 +13,12 @@ import java.util.Scanner;
 
 public class CliTestRunner
 {
-    private final static boolean DEBUG = true;
-
     public static void main(String[] args)
     {
-        String prefix = Settings.com_prefix;
+        Configuration config = Configuration.from("debug_enabled: true");
         Scanner in = new Scanner(System.in);
-        TimeHandler th = new TimeHandler();
-        CommandHandler mockBot = new CommandHandler(prefix, th, DEBUG);
+        TimeHandler th = new TimeHandler(config);
+        CommandHandler mockBot = new CommandHandler(config.com_prefix, th, config.debug_enabled);
 
         IDiscordClient client = new MockDiscordClient();
         client.getDispatcher().registerListener(mockBot);
