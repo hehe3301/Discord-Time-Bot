@@ -43,6 +43,9 @@ public class MainRunner
             return;
         }
 
+        // If we modify the config later, consider writing the config back to disk even if it was loaded successfully,
+        // to populate any default fields.
+
         IDiscordClient cli = BotUtils.getBuiltDiscordClient(config.bot_token);
 
         // Register a listener via the EventSubscriber annotation which allows for organisation and delegation of events
